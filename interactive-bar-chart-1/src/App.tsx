@@ -15,17 +15,17 @@ function App() {
   ];
 
   // Generate 50 more sample data entries
-  for (let i = 0; i < 50; i++) {
-    const randomProduct = `Product${i + 11}`;  // Generates Product11, Product12, etc.
-    const randomTotalValue = Math.floor(Math.random() * 51) + 10;  // Random TotalValue between 10 and 60
-    const randomTotalSales = Math.floor(Math.random() * 20) + 1;  // Random TotalSales between 1 and 20
+  // for (let i = 0; i < 50; i++) {
+  //   const randomProduct = `Product${i + 11}`;  // Generates Product11, Product12, etc.
+  //   const randomTotalValue = Math.floor(Math.random() * 51) + 10;  // Random TotalValue between 10 and 60
+  //   const randomTotalSales = Math.floor(Math.random() * 20) + 1;  // Random TotalSales between 1 and 20
 
-    sampleData.push({
-      Product: randomProduct,
-      TotalValue: randomTotalValue,
-      TotalSales: randomTotalSales,
-    });
-  }
+  //   sampleData.push({
+  //     Product: randomProduct,
+  //     TotalValue: randomTotalValue,
+  //     TotalSales: randomTotalSales,
+  //   });
+  // }
 
   console.log(sampleData);
   const sortedData = sampleData.slice().sort((a, b) => {
