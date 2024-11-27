@@ -2,6 +2,7 @@
 import { Chart, ChartItem, ChartConfiguration } from "chart.js/auto";
 import { useEffect, useRef, useState } from "react";
 import { interpolateOranges } from "d3-scale-chromatic";
+import ColorScale from "./components/ColorScale";
 
 interface BarChartProps {
     data: { Product: string, TotalValue: number, TotalSales: number }[];
@@ -23,6 +24,7 @@ export default function BarChart(barChartProps: BarChartProps) {
             colorEnd: 1,
             useEndAsStart: false,
         };
+
         //Slice the main array to make a shallow copy
         const sortedDataBasedOnTotalValue = barChartProps.data.slice().sort((a, b) => a.TotalValue - b.TotalValue);
         const COLORS = interpolateColors(colorScale, colorRangeInfo, sortedDataBasedOnTotalValue[0].TotalValue, sortedDataBasedOnTotalValue[sortedDataBasedOnTotalValue.length - 1].TotalValue);
@@ -37,10 +39,12 @@ export default function BarChart(barChartProps: BarChartProps) {
                     label: 'Total Sales',
                     data: barChartProps.data.map(item => item.TotalSales),
                     //Set up colors according to the TotalValue to Color Mapping
-                    backgroundColor: barChartProps.data.map(item => COLORS.colorMap.get(item.TotalValue))
+                    backgroundColor: barChartProps.data.map(item => COLORS.colorMap.get(item.TotalValue)),
+                    
                 }
             ]
         };
+
         //Configure Chart
         const config = {
             type: 'bar',
@@ -67,7 +71,7 @@ export default function BarChart(barChartProps: BarChartProps) {
                 }
             }
         }
-        //
+        
         // Determine the color based on TotalValue for each bar
         function calculatePoint(i: number, intervalSize: number, colorRangeInfo: any) {
             const { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
@@ -82,7 +86,6 @@ export default function BarChart(barChartProps: BarChartProps) {
             const intervalSize = colorRange / (end - start + 1);
             const colorArray = [];
             const colorMap = new Map();
-            // Generate color array and map the color to TotalSales based on position in sortedData
             for (let i = start, j = 0; i <= end; i++, j++) {
                 const colorPoint = calculatePoint(j, intervalSize, colorRangeInfo);
                 const color = colorScale(colorPoint);
@@ -106,6 +109,9 @@ export default function BarChart(barChartProps: BarChartProps) {
             <div className="flex gap-3">
                 <div className="w-10/12">
                     <canvas ref={chartRef} />
+                </div>
+                <div>
+                    <ColorScale COLORS={colorMap}/>
                 </div>
             </div>
         </>
