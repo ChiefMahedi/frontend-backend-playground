@@ -1,5 +1,5 @@
-import { useEffect, useRef} from "react";
-import { Chart, ChartItem } from "chart.js/auto";
+import { useEffect, useRef } from "react";
+import { Chart, ChartItem, ChartConfiguration } from "chart.js/auto";
 
 type SalesData = {
   Date: string;
@@ -38,23 +38,23 @@ export default function MixedChart() {
     // Extract unique months from data
     const uniqueMonths = (() => {
       const monthYearArray = data.map((row) => {
-        const [, month, year] = row.Date.split("/"); 
-        return `${month}/${year}`; 
+        const [, month, year] = row.Date.split("/");
+        return `${month}/${year}`;
       });
-    
+
       const uniqueMonthYears = Array.from(new Set(monthYearArray));
-    
+
       const sortedUniqueMonths = uniqueMonthYears.sort((a, b) => {
         const [monthA, yearA] = a.split("/").map(Number);
         const [monthB, yearB] = b.split("/").map(Number);
-    
-        if (yearA === yearB) return monthA - monthB; 
-        return yearA - yearB; 
+
+        if (yearA === yearB) return monthA - monthB;
+        return yearA - yearB;
       });
-    
+
       return sortedUniqueMonths;
     })();
-    
+
 
     const currentMonth = uniqueMonths[uniqueMonths.length - 1];
     const previousMonth = uniqueMonths[uniqueMonths.length - 2];
@@ -79,7 +79,7 @@ export default function MixedChart() {
     const labels = currentMonthData.map((item) => item.Product);
 
     const context = chartRef.current?.getContext("2d");
-    const mixedChart = new Chart(context as ChartItem, {
+    const options = {
       data: {
         labels,
         datasets: [
@@ -117,12 +117,13 @@ export default function MixedChart() {
           },
         },
       },
-    });
+    }
+    const mixedChart = new Chart(context as ChartItem, options as unknown as ChartConfiguration);
 
 
     const handleLegendClick = (datasetIndex: number) => {
       const meta = mixedChart.getDatasetMeta(datasetIndex);
-      meta.hidden = meta.hidden === null ? !mixedChart.data.datasets[datasetIndex].hidden : null;
+      meta.hidden = meta.hidden === false ? !mixedChart.data.datasets[datasetIndex].hidden : false;
       mixedChart.update();
     };
 
