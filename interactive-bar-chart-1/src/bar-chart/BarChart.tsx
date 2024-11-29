@@ -130,7 +130,7 @@ export default function BarChart(barChartProps: BarChartProps) {
     return (
         <>
             <div className="flex gap-3">
-                <div className="w-10/12">
+                <div className="laptop:w-11/12 mobile:w-10/12 table:w-10/12">
                     <canvas ref={chartRef} />
                 </div>
                 <div>
