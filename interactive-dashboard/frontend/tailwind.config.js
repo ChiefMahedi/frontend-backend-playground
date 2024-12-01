@@ -7,8 +7,11 @@ export default {
     theme: {
       extend: {
         colors:{
-         
-        }
+         'sidebar':'#05103c'
+        },
+        fontFamily: {
+          poppins: ["Poppins", "sans-serif"],
+        },
       },
       screens: {
         'mobile': '360px',
@@ -16,6 +19,7 @@ export default {
         'laptop': '1024px',
         'desktop': '1280px',
       },
+
     },
     plugins: [],
   }
