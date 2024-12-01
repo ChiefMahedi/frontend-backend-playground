@@ -6,44 +6,23 @@ type SalesData = {
   Product: string;
   MonthSales: number;
 };
-
-export default function MixedChart() {
+interface MixedChartProps {
+  data: SalesData[];
+}
+export default function MixedChart(mixedDataProps: MixedChartProps) {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const legendRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const data: SalesData[] = [
-      { Date: "7/11/2024", Product: "aaa", MonthSales: 10 },
-      { Date: "4/10/2024", Product: "hgt", MonthSales: 20 },
-      { Date: "9/11/2024", Product: "prp", MonthSales: 11 },
-      { Date: "2/10/2024", Product: "ooo", MonthSales: 8 },
-      { Date: "7/10/2024", Product: "aaa", MonthSales: 12 },
-      { Date: "8/11/2024", Product: "rtt", MonthSales: 20 },
-      { Date: "8/10/2024", Product: "rtt", MonthSales: 18 },
-      { Date: "11/10/2024", Product: "ghh", MonthSales: 8 },
-      { Date: "17/11/2024", Product: "dww", MonthSales: 18 },
-      { Date: "17/11/2024", Product: "ytt", MonthSales: 17 },
-      { Date: "6/11/2024", Product: "eee", MonthSales: 15 },
-      { Date: "17/10/2024", Product: "dww", MonthSales: 19 },
-      { Date: "2/11/2024", Product: "qyy", MonthSales: 7 },
-      { Date: "9/10/2024", Product: "prp", MonthSales: 10 },
-      { Date: "4/11/2024", Product: "hgt", MonthSales: 19 },
-      { Date: "2/11/2024", Product: "ooo", MonthSales: 17 },
-      { Date: "6/10/2024", Product: "eee", MonthSales: 13 },
-      { Date: "11/11/2024", Product: "ghh", MonthSales: 5 },
-      { Date: "17/10/2024", Product: "ytt", MonthSales: 17 },
-      { Date: "2/10/2024", Product: "qyy", MonthSales: 10 },
-    ];
-
     // Extract unique months from data
     const uniqueMonths = (() => {
-      const monthYearArray = data.map((row) => {
+      const monthYearArray = mixedDataProps.data.map((row) => {
         const [, month, year] = row.Date.split("/");
         return `${month}/${year}`;
       });
 
       const uniqueMonthYears = Array.from(new Set(monthYearArray));
-
+      console.log('Unique months', uniqueMonthYears)
       const sortedUniqueMonths = uniqueMonthYears.sort((a, b) => {
         const [monthA, yearA] = a.split("/").map(Number);
         const [monthB, yearB] = b.split("/").map(Number);
@@ -62,7 +41,7 @@ export default function MixedChart() {
     const currentMonthData: SalesData[] = [];
     const previousMonthData: SalesData[] = [];
 
-    data.forEach((row) => {
+    mixedDataProps.data.forEach((row) => {
       const rowMonth = row.Date.split("/").slice(1, 3).join("/");
       if (rowMonth === currentMonth) {
         currentMonthData.push(row);
@@ -76,6 +55,8 @@ export default function MixedChart() {
 
     const currentMonthSales = currentMonthData.map((item) => item.MonthSales);
     const previousMonthSales = previousMonthData.map((item) => item.MonthSales);
+    console.log('Current month sales', currentMonthSales);
+    console.log('Previous month sales', previousMonthSales);
     const labels = currentMonthData.map((item) => item.Product);
 
     const context = chartRef.current?.getContext("2d");
@@ -123,24 +104,30 @@ export default function MixedChart() {
 
     const handleLegendClick = (datasetIndex: number) => {
       const meta = mixedChart.getDatasetMeta(datasetIndex);
-      meta.hidden = meta.hidden === false ? !mixedChart.data.datasets[datasetIndex].hidden : false;
+      meta.hidden = meta.hidden === null ? !mixedChart.data.datasets[datasetIndex].hidden : false;
       mixedChart.update();
     };
 
     // Create custom legend HTML and bind click events
     const customLegendHtml = ` 
-      <div class="flex justify-center flex-col space-x-6 p-4">
-        <div class="flex items-center space-x-2 cursor-pointer" id="legend-item-0">
-          <span class="w-6 h-6 bg-blue-600"></span>
-          <span class="text-gray-800">Current Month Sales</span>
-        </div>
-        <div class="flex items-center  cursor-pointer" id="legend-item-1">
-           <span class="w-3 h-1 bg-red-600"></span>
-          <span class="w-3 h-3 rounded-full bg-red-600"></span>
-             <span class="w-3 h-1 bg-red-600"></span>
-          <span class="text-gray-800">Previous Month Sales</span>
-        </div>
-      </div>
+<div class="flex justify-center flex-col space-y-4 p-4">
+  <!-- Current Month Sales -->
+  <div class="flex items-center space-x-2 cursor-pointer" id="legend-item-0">
+    <span class="w-4 h-4 ml-2 mr-3 bg-blue-600"></span>
+    <span class="text-gray-800">Current Month Sales</span>
+  </div>
+  
+  <!-- Previous Month Sales -->
+  <div class="flex w-64 items-center space-x-2 cursor-pointer" id="legend-item-1">
+    <div class="flex items-center">
+      <span class="w-3 h-1 bg-red-600"></span>
+      <span class="w-3 h-3 rounded-full bg-red-600"></span>
+      <span class="w-3 h-1 bg-red-600"></span>
+    </div>
+    <span class="text-gray-800">Previous Month Sales</span>
+  </div>
+</div>
+
     `;
 
     // Insert custom legend HTML into the specified container
@@ -161,7 +148,7 @@ export default function MixedChart() {
     return () => {
       mixedChart.destroy();
     };
-  }, []);
+  }, [mixedDataProps]);
 
   return (
     <div className="flex">
