@@ -114,7 +114,7 @@ export default function MixedChart(mixedDataProps: MixedChartProps) {
   <!-- Current Month Sales -->
   <div class="flex items-center space-x-2 cursor-pointer" id="legend-item-0">
     <span class="w-4 h-4 ml-2 mr-3 bg-blue-600"></span>
-    <span class="text-gray-800">Current Month Sales</span>
+    <span class="text-gray-800 text-sm">Current Month Sales</span>
   </div>
   
   <!-- Previous Month Sales -->
@@ -124,7 +124,7 @@ export default function MixedChart(mixedDataProps: MixedChartProps) {
       <span class="w-3 h-3 rounded-full bg-red-600"></span>
       <span class="w-3 h-1 bg-red-600"></span>
     </div>
-    <span class="text-gray-800">Previous Month Sales</span>
+    <span class="text-gray-800 text-sm">Previous Month Sales</span>
   </div>
 </div>
 
@@ -151,12 +151,11 @@ export default function MixedChart(mixedDataProps: MixedChartProps) {
   }, [mixedDataProps]);
 
   return (
-    <div className="flex">
-      <div className="w-10/12">
+    <div className="flex flex-col laptop:flex-row mt-5">
+      <div className="w-11/12 self-center ">
         <canvas ref={chartRef} />
       </div>
-
-      <div id="legend-container" ref={legendRef}></div>
+      <div id="legend-container" ref={legendRef} className="self-center laptop:self-start"></div>
     </div>
   );
 }

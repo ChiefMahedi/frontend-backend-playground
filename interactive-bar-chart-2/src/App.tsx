@@ -50,11 +50,11 @@ function App() {
   }
   return (
     <>
-      <div className="flex justify-center p-2">
-        <div>
+      <div className="flex flex-col items-center laptop:justify-center laptop:flex-row laptop:p-4">
+        <div className="mt-3 laptop:mt-0">
           <DataInput onDataParse={handleDataParse} />
         </div>
-        <div className="w-10/12">
+        <div className="w-11/12 ml-2">
           <MixedChart data={data} />
         </div>
       </div>
