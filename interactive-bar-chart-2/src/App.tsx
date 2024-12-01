@@ -50,7 +50,7 @@ function App() {
   }
   return (
     <>
-      <div className="flex flex-col items-center laptop:justify-center laptop:flex-row laptop:p-4">
+      <div className="flex flex-col items-center  laptop:flex-row laptop:p-4">
         <div className="mt-3  laptop:mt-0 laptop:p-3">
           <DataInput onDataParse={handleDataParse} />
         </div>
