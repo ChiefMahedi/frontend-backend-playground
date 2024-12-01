@@ -152,7 +152,7 @@ export default function MixedChart(mixedDataProps: MixedChartProps) {
 
   return (
     <div className="flex flex-col laptop:flex-row mt-5">
-      <div className="w-11/12 self-center ">
+      <div className="w-10/12 self-center ">
         <canvas ref={chartRef} />
       </div>
       <div id="legend-container" ref={legendRef} className="self-center laptop:self-start"></div>
