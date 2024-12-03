@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartColumn, faHouse, faUser, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export default function Sidebar() {
@@ -32,7 +32,7 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex flex-col mt-8 space-y-1">
-          <NavItem icon={faHouse} label="Dashboard" isActive={true} redirectTo="/" />
+          <NavItem icon={faHouse} label="Dashboard" redirectTo="/" />
           <NavItem icon={faUser} label="Customers" redirectTo="/customers" />
           <NavItem icon={faUser} label="Products" redirectTo="/products" />
         </nav>
@@ -53,18 +53,19 @@ const NavItem = ({
   icon,
   label,
   redirectTo,
-  isActive = false,
 }: {
   icon: IconProp;
   label: string;
   redirectTo: string;
-  isActive?: boolean;
 }) => {
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   const handleNavigation = () => {
     navigate(redirectTo); 
   };
+
+  const isActive = location.pathname === redirectTo;
 
   return (
     <div
