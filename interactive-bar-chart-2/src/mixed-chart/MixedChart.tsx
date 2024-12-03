@@ -97,6 +97,32 @@ export default function MixedChart(mixedDataProps: MixedChartProps) {
             containerID: "legend-container",
           },
         },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Product",
+              font: {
+                size: 10,
+                weight: "normal",
+              },
+              color: "#666",
+            },
+          },
+          y: {
+            title: {
+              display: true,
+              text: "Values",
+              font: {
+                size: 10,
+                weight: "normal",
+              },
+              color: "#666",
+            },
+            beginAtZero: true,
+          },
+        }
+
       },
     }
     const mixedChart = new Chart(context as ChartItem, options as unknown as ChartConfiguration);
