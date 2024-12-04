@@ -4,7 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 
-const products = [
+// Define the Product interface
+interface Product {
+  ProductName: string;
+  Category: string;
+  Stock: number;
+  Price: number;
+  Rating: number;
+}
+
+const products: Product[] = [
   { ProductName: "Paracetamol Tablets", Category: "Pharmaceuticals", Stock: 500, Price: 5, Rating: 4.5 },
   { ProductName: "Ibuprofen Gel", Category: "Pharmaceuticals", Stock: 300, Price: 10, Rating: 4.4 },
   { ProductName: "Antiseptic Cream", Category: "Pharmaceuticals", Stock: 400, Price: 7, Rating: 4.6 },
@@ -28,19 +37,23 @@ const products = [
 ];
 
 const ProductsDashboard = () => {
-  const [search, setSearch] = useState('');
-  const [sortField, setSortField] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  // State types
+  const [search, setSearch] = useState<string>('');
+  const [sortField, setSortField] = useState<keyof Product | null>(null);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const itemsPerPage: number = 5;
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
+  // Handle search input change
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(e.target.value);
     setCurrentPage(1); // Reset to the first page on search
   };
 
-  const handleSort = (field) => {
+  // Handle sorting by column
+  const handleSort = (field: keyof Product): void => {
     if (sortField === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
@@ -50,7 +63,8 @@ const ProductsDashboard = () => {
     setCurrentPage(1); // Reset to the first page on sort
   };
 
-  const filteredProducts = products
+  // Filter and sort the products
+  const filteredProducts: Product[] = products
     .filter((product) =>
       Object.values(product).some((value) =>
         value.toString().toLowerCase().includes(search.toLowerCase())
@@ -65,14 +79,16 @@ const ProductsDashboard = () => {
       }
     });
 
-  const totalItems = filteredProducts.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const displayedProducts = filteredProducts.slice(
+  const totalItems: number = filteredProducts.length;
+  const totalPages: number = Math.ceil(totalItems / itemsPerPage);
+
+  const displayedProducts: Product[] = filteredProducts.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const handlePageChange = (page) => {
+  // Handle page change
+  const handlePageChange = (page: number): void => {
     setCurrentPage(page);
   };
 
@@ -153,8 +169,7 @@ const ProductsDashboard = () => {
               key={page}
               className={`px-4 py-2 mx-1 border ${page === currentPage
                 ? 'bg-slate-700 text-white'
-                : 'bg-white text-blue-slate'
-                }`}
+                : 'bg-white text-blue-500 border-slate-300 hover:border-slate-400 hover:bg-slate-100'}`}
               onClick={() => handlePageChange(page)}
             >
               {page}

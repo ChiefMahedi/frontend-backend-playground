@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSort } from "@fortawesome/free-solid-svg-icons";
 
-const orders = [
+type Order = {
+    OrderID: number;
+    CustomerName: string;
+    Product: string;
+    Quantity: number;
+    TotalPrice: number;
+    Status: string;
+};
+
+const orders: Order[] = [
     { OrderID: 101, CustomerName: "John Doe", Product: "Paracetamol Tablets", Quantity: 5, TotalPrice: 25, Status: "Delivered" },
     { OrderID: 102, CustomerName: "Jane Smith", Product: "Cough Syrup", Quantity: 2, TotalPrice: 30, Status: "Pending" },
     { OrderID: 103, CustomerName: "Alice Brown", Product: "Hand Sanitizer", Quantity: 10, TotalPrice: 30, Status: "Shipped" },
@@ -15,24 +24,24 @@ const orders = [
 ];
 
 const OrderList = () => {
-    const [search, setSearch] = useState('');
-    const [sortField, setSortField] = useState(null);
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState<string>("");
+    const [sortField, setSortField] = useState<keyof Order | null>(null);
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 5;
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
         setCurrentPage(1);
     };
 
-    const handleSort = (field) => {
+    const handleSort = (field: keyof Order) => {
         if (sortField === field) {
-            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
         } else {
             setSortField(field);
-            setSortOrder('asc');
+            setSortOrder("asc");
         }
         setCurrentPage(1);
     };
@@ -45,7 +54,7 @@ const OrderList = () => {
         )
         .sort((a, b) => {
             if (!sortField) return 0;
-            if (sortOrder === 'asc') {
+            if (sortOrder === "asc") {
                 return a[sortField] > b[sortField] ? 1 : -1;
             } else {
                 return a[sortField] < b[sortField] ? 1 : -1;
@@ -59,7 +68,7 @@ const OrderList = () => {
         currentPage * itemsPerPage
     );
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
@@ -74,8 +83,8 @@ const OrderList = () => {
                         <Breadcrumbs
                             mainPage="Orders"
                             parentPage="Dashboard"
-                            onClickMainPage={() => navigate('/orders')}
-                            onClickParentPage={() => navigate('/')}
+                            onClickMainPage={() => navigate("/orders")}
+                            onClickParentPage={() => navigate("/")}
                         />
                     </div>
                 </div>
@@ -95,32 +104,32 @@ const OrderList = () => {
                         <tr>
                             <th
                                 className="py-2 px-4 border-b border-slate-200 text-left cursor-pointer"
-                                onClick={() => handleSort('OrderID')}
+                                onClick={() => handleSort("OrderID")}
                             >
                                 Order ID <FontAwesomeIcon icon={faSort} />
                             </th>
                             <th
                                 className="py-2 px-4 border-b border-slate-200 text-left cursor-pointer"
-                                onClick={() => handleSort('CustomerName')}
+                                onClick={() => handleSort("CustomerName")}
                             >
                                 Customer Name <FontAwesomeIcon icon={faSort} />
                             </th>
                             <th className="py-2 px-4 border-b border-slate-200 text-left">Product</th>
                             <th
                                 className="py-2 px-4 border-b border-slate-200 text-left cursor-pointer"
-                                onClick={() => handleSort('Quantity')}
+                                onClick={() => handleSort("Quantity")}
                             >
                                 Quantity <FontAwesomeIcon icon={faSort} />
                             </th>
                             <th
                                 className="py-2 px-4 border-b border-slate-200 text-left cursor-pointer"
-                                onClick={() => handleSort('TotalPrice')}
+                                onClick={() => handleSort("TotalPrice")}
                             >
                                 Total Price ($) <FontAwesomeIcon icon={faSort} />
                             </th>
                             <th
                                 className="py-2 px-4 border-b border-slate-200 text-left cursor-pointer"
-                                onClick={() => handleSort('Status')}
+                                onClick={() => handleSort("Status")}
                             >
                                 Status <FontAwesomeIcon icon={faSort} />
                             </th>
@@ -145,10 +154,11 @@ const OrderList = () => {
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                             key={page}
-                            className={`px-4 py-2 mx-1 border ${page === currentPage
-                                ? 'bg-slate-700 text-white'
-                                : 'bg-white text-blue-slate'
-                                }`}
+                            className={`px-4 py-2 mx-1 border ${
+                                page === currentPage
+                                    ? "bg-slate-700 text-white"
+                                    : "bg-white text-blue-slate"
+                            }`}
                             onClick={() => handlePageChange(page)}
                         >
                             {page}

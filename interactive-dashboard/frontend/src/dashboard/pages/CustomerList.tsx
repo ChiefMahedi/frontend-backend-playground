@@ -1,10 +1,20 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {SetStateAction, useState } from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort} from '@fortawesome/free-solid-svg-icons';
 import EmailFormModal from '../components/EmailFormModal';
-
+type Customer = {
+    ID: string;
+    CustomerName: string;
+    Division: string;
+    Gender: string;
+    MaritalStatus: string;
+    Age: number;
+    Income: number;
+    Email: string;
+};
 const customers = [
     { ID: "BU79786", CustomerName: "Andrew", Division: "Dhaka", Gender: "F", MaritalStatus: "Married", Age: 31, Income: 56274, Email:'chiefmahedi@gmail.com'},
     { ID: "QZ44356", CustomerName: "Anne", Division: "Rajshahi", Gender: "F", MaritalStatus: "Single", Age: 46, Income: 0 , Email:'chiefmahedi@gmail.com'},
@@ -58,25 +68,25 @@ const customers = [
 
 const CustomerList = () => {
     const [search, setSearch] = useState('');
-    const [sortField, setSortField] = useState(null);
+    const [sortField, setSortField] = useState<keyof Customer | null>(null);
     const [sortOrder, setSortOrder] = useState('asc');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: { target: { value: SetStateAction<string>; }; }) => {
         setSearch(e.target.value);
         setCurrentPage(1); // Reset to the first page on search
     };
 
-    const handleSort = (field) => {
+    const handleSort = (field: keyof Customer) => {
         if (sortField === field) {
             setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         } else {
             setSortField(field);
             setSortOrder('asc');
         }
-        setCurrentPage(1); // Reset to the first page on sort
+        setCurrentPage(1);
     };
 
     const filteredCustomers = customers
@@ -101,7 +111,7 @@ const CustomerList = () => {
         currentPage * itemsPerPage
     );
 
-    const handlePageChange = (page) => {
+    const handlePageChange = (page: SetStateAction<number>) => {
         setCurrentPage(page);
     };
 
@@ -160,7 +170,7 @@ const CustomerList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {displayedCustomers.map((customer, index) => (
+                        {displayedCustomers.map((customer, _index) => (
                             <tr key={customer.ID} className="border-b">
                                 <td className="py-2 px-4">{customer.CustomerName}</td>
                                 <td className="py-2 px-4">{customer.Division}</td>
