@@ -61,7 +61,7 @@ export default function MaritalStatusIncomePieChart(props: MaritalStatusIncomePi
 
     return (
         <>
-            <div className="w-96 border shadow-2xl m-3 p-2 rounded flex flex-col">
+            <div className="w-56 laptop:w-96 border shadow-2xl m-3 p-1 rounded flex flex-col">
                 <div className="p-1">
                     <FontAwesomeIcon icon={faVenusMars} className="text-2xl text-sidebar" />
                 </div>
