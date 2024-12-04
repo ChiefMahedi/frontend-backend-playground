@@ -1,4 +1,4 @@
-import DashboardRouter from "./dashboard/router/DasboardRouter"
+import DashboardRouter from "./dashboard/router/DashboardRouter"
 function App() {
   return (
     <>
