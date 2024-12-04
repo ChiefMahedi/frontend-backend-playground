@@ -2,7 +2,8 @@ import { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 interface EmailFormModal {
     email: string;
 }
@@ -28,22 +29,28 @@ const EmailFormModal = (props: EmailFormModal) => {
 
     const sendEmail = (e: React.FormEvent) => {
         e.preventDefault();
-
+        //console.log('pk', import.meta.env.VITE_EMAILJS_SERVICE_KEY)
         emailjs
-            .send(import.meta.env.EMAILJS_SERVICE_KEY, import.meta.env.EMAILJS_TEMPLATE_KEY, {
+            .send(import.meta.env.VITE_EMAILJS_SERVICE_KEY, import.meta.env.VITE_EMAILJS_TEMPLATE_KEY, {
                 user_name: formValues.user_name,
                 user_email: props.email,
                 message: formValues.message,
                 from_name: 'SalesCRM'
             }, {
-                publicKey: import.meta.env.EMAILJS_PUBLIC_KEY
+                publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             })
             .then(
                 () => {
                     console.log("Email Sent");
+                    toast.success("Email sent!", {
+                        position: "top-center"
+                      });
                 },
                 (error) => {
                     console.log("Email could not be sent", error);
+                    toast.error("Could not send the email!", {
+                        position: "top-center"
+                      });
                 }
             );
     };
@@ -118,6 +125,7 @@ const EmailFormModal = (props: EmailFormModal) => {
                     </div>
                 </div>
             )}
+             <ToastContainer />
         </div>
     );
 };
