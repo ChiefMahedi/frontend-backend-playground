@@ -178,7 +178,7 @@ const CustomerList = () => {
                                 <td className="py-2 px-4">{customer.MaritalStatus}</td>
                                 <td className="py-2 px-4">{customer.Age}</td>
                                 <td className="py-2 px-4">{customer.Income}</td>
-                                <td className="py-2 px-4 laptop:flex laptop:flex-row items-center">
+                                <td className="py-2 px-4 flex flex-col laptop:flex laptop:flex-row items-center">
                                     <div>
                                         {customer.Email}
                                     </div>
@@ -191,7 +191,7 @@ const CustomerList = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4 laptop:flex justify-center">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index}

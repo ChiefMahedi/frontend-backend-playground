@@ -149,12 +149,11 @@ const OrderList = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="flex justify-center mt-3 ml-5">
-                <div className="flex gap-2">
+            <div className="laptop:flex justify-center mt-3 ml-5">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                         <button
                             key={page}
-                            className={`px-4 py-2 mx-1 border ${
+                            className={`px-4 py-2 border ${
                                 page === currentPage
                                     ? "bg-slate-700 text-white"
                                     : "bg-white text-blue-slate"
@@ -164,7 +163,6 @@ const OrderList = () => {
                             {page}
                         </button>
                     ))}
-                </div>
             </div>
         </div>
     );

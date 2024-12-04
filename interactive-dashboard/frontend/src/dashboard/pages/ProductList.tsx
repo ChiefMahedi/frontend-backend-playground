@@ -97,7 +97,7 @@ const ProductsDashboard = () => {
       <div className="laptop:flex-row flex-col flex justify-between items-center mb-3 pl-3">
         <div className="laptop:flex-col flex flex-col">
           <h1 className="font-semibold ml-7 mt-12 laptop:mt-3 laptop:self-start antialiased text-lg font-poppins self-center">
-            Products Dashboard
+            Products
           </h1>
           <div className="self-center laptop:self-start">
             <Breadcrumbs
@@ -162,20 +162,18 @@ const ProductsDashboard = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-center mt-3 ml-5">
-        <div className="flex gap-2">
+      <div className="mt-4 laptop:flex justify-center items-center">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
-              className={`px-4 py-2 mx-1 border ${page === currentPage
+              className={`px-4 py-2  border ${page === currentPage
                 ? 'bg-slate-700 text-white'
-                : 'bg-white text-blue-500 border-slate-300 hover:border-slate-400 hover:bg-slate-100'}`}
+                : 'bg-white text-slate-700 text-sm'}`}
               onClick={() => handlePageChange(page)}
             >
               {page}
             </button>
           ))}
-        </div>
       </div>
     </div>
   );
