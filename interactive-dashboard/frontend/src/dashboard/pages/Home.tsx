@@ -8,6 +8,7 @@ import TotalIncomeBarChart from "../components/TotalIncomeBarChart";
 import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from "../components/Breadcrumbs";
 import { useEffect, useState } from "react";
+import MaritalStatusIncomePieChart from "../components/MaritalStatusIncomePieChart";
 
 interface CustomerData {
     ID: string,
@@ -139,7 +140,7 @@ export default function Home() {
         setTotalCustomer(String(customerCount));
 
         const incomeCount = totalIncomeAmount();
-        setTotalIncome(`BDT. ${incomeCount}`); 
+        setTotalIncome(`BDT. ${incomeCount}`);
 
         console.log(`Total customers: ${customerCount}`);
         console.log(`Total income: ${incomeCount}`);
@@ -173,9 +174,10 @@ export default function Home() {
                     <TotalIncomeBarChart data={customers} />
                     <AgeIncomeScatterChart data={customers} />
                 </div>
-                <div className="flex-col items-center laptop:flex-row laptop:flex flex ">
+                <div className="flex-col items-center laptop:flex-row laptop:flex flex laptop:justify-evenly laptop:items-center">
                     <GenderDistributionChart data={customers} />
                     <IncomeExtremesByDivisionChart data={customers} />
+                    <MaritalStatusIncomePieChart data={customers} />
                 </div>
             </div>
 
