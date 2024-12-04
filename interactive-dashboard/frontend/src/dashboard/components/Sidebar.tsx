@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartColumn, faHouse, faUser, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faChartColumn, faHouse, faUser, faBars, faXmark, faShop, faList } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
@@ -20,9 +20,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-sidebar text-white flex flex-col z-40 transition-transform duration-300 transform ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } tablet:translate-x-0 tablet:static tablet:w-64`}
+        className={`fixed top-0 left-0 h-full w-64 bg-sidebar text-white flex flex-col z-40 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } tablet:translate-x-0 tablet:static tablet:w-64`}
       >
         {/* Logo Section */}
         <div className="flex items-center gap-3 px-6 py-4 bg-gray-900 shadow-md">
@@ -34,7 +33,9 @@ export default function Sidebar() {
         <nav className="flex flex-col mt-8 space-y-1">
           <NavItem icon={faHouse} label="Dashboard" redirectTo="/" />
           <NavItem icon={faUser} label="Customers" redirectTo="/customers" />
-          <NavItem icon={faUser} label="Products" redirectTo="/products" />
+          <NavItem icon={faShop} label="Products" redirectTo="/products" />
+          <NavItem icon={faList} label="Orders" redirectTo="/orders" />
+
         </nav>
       </div>
 
@@ -59,21 +60,20 @@ const NavItem = ({
   redirectTo: string;
 }) => {
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
 
   const handleNavigation = () => {
-    navigate(redirectTo); 
+    navigate(redirectTo);
   };
 
   const isActive = location.pathname === redirectTo;
 
   return (
     <div
-      className={`flex items-center px-6 py-3 text-sm font-medium cursor-pointer transition-all duration-200 ${
-        isActive
+      className={`flex items-center px-6 py-3 text-sm font-medium cursor-pointer transition-all duration-200 ${isActive
           ? 'bg-gray-700 text-yellow-500 shadow-inner'
           : 'text-gray-400 hover:bg-gray-700 hover:text-yellow-500'
-      }`}
+        }`}
       onClick={handleNavigation}
     >
       <div className="flex-shrink-0 flex items-center justify-center w-5 h-5">
