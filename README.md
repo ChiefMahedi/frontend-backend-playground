@@ -1,3 +1,5 @@
+Technologies used : React.js, Chart.js, TailwindCss, Node.js, Express.js, TypeScript, etc
+
 # Interactive Bar Chart 1 - 1(a)
 
 This bar chart can be used to visualize data with three variables: TotalSales, Product, and TotalValue. The x-axis represents the product, the y-axis represents TotalSales, and the intensity of the bar color is based on TotalValue.
