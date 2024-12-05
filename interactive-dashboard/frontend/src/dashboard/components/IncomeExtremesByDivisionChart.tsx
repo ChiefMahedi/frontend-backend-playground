@@ -76,7 +76,7 @@ export default function IncomeExtremesByDivisionChart(props: IncomeExtremesByDiv
         return () => {
             chartInstance.destroy();
         }
-    }, []);
+    }, [props]);
 
     return (
         <>

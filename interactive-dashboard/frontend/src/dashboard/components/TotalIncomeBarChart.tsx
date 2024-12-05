@@ -55,7 +55,7 @@ export default function TotalIncomeBarChart(props: TotalIncomeBarChartProps) {
     return () => {
       chartInstance.destroy();
     }
-  }, []);
+  }, [props]);
 
   return (
     <>

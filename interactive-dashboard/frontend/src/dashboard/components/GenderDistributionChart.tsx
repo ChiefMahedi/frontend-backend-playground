@@ -57,7 +57,7 @@ export default function GenderDistributionChart(props: GenderDistributionChartPr
         return () => {
             chartInstance.destroy();
         };
-    }, []);
+    }, [props]);
 
     return (
         <>

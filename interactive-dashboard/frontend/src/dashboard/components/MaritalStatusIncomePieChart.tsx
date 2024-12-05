@@ -57,7 +57,7 @@ export default function MaritalStatusIncomePieChart(props: MaritalStatusIncomePi
         return () => {
             chartInstance.destroy();
         };
-    }, []);
+    }, [props]);
 
     return (
         <>

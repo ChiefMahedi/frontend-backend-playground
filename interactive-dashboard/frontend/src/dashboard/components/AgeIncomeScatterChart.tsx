@@ -61,7 +61,7 @@ export default function AgeIncomeScatterChart(ageIncomeProps: AgeIncomeScatterCh
         return () => {
             chartInstance.destroy();
         };
-    }, []);
+    }, [ageIncomeProps]);
     return (
         <>
             <div className="w-82 laptop:w-6/12 border shadow-2xl m-3 p-2 rounded flex flex-col">
