@@ -61,12 +61,12 @@ export default function GenderDistributionChart(props: GenderDistributionChartPr
 
     return (
         <>
-            <div className="w-48 border shadow-2xl m-3 p-2 rounded flex flex-col">
+            <div className="w-48 desktop:w-96 border shadow-2xl m-3 p-2 rounded flex flex-col">
                 <div className="p-1">
                     <FontAwesomeIcon icon={faVenusMars} className="text-2xl text-sidebar" />
                 </div>
                 <h3 className="font-semibold p-1 self-center text-sm font-poppins">Gender Distribution of Customers</h3>
-                <div className="h-40">
+                <div className="h-40 desktop:h-56">
                     <canvas ref={chartRef} />
                 </div>
             </div>

@@ -66,7 +66,7 @@ export default function MaritalStatusIncomePieChart(props: MaritalStatusIncomePi
                     <FontAwesomeIcon icon={faVenusMars} className="text-2xl text-sidebar" />
                 </div>
                 <h3 className="font-semibold p-1 self-center text-sm font-poppins">Total Income by Marital Status</h3>
-                <div className="h-48">
+                <div className="h-48 desktop:h-56">
                     <canvas ref={chartRef} />
                 </div>
             </div>

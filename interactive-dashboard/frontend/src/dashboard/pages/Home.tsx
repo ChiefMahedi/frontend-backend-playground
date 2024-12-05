@@ -184,7 +184,7 @@ export default function Home() {
                         onClickParentPage={() => navigate('/')} />
                 </div>
 
-                <div className="flex flex-col items-center laptop:justify-between laptop:flex-row">
+                <div className="flex flex-col items-center laptop:justify-between laptop:flex-row desktop:justify-evenly">
                     <StatsCard icon={faMoneyBill} label="Total Income" number={totalIncome} />
                     <StatsCard icon={faPeopleLine} label="Total Customers" number={totalCustomer} />
                     <StatsCard icon={faMap} label="Highest Income Division" number={lowIncomeDiv} />
@@ -194,7 +194,7 @@ export default function Home() {
                     <TotalIncomeBarChart data={customerData} />
                     <AgeIncomeScatterChart data={customerData} />
                 </div>
-                <div className="flex-col items-center laptop:flex-row laptop:flex flex laptop:justify-evenly laptop:items-center">
+                <div className="flex-col items-center desktop:justify-center laptop:flex-row laptop:flex flex laptop:justify-evenly laptop:items-center">
                     <GenderDistributionChart data={customerData} />
                     <IncomeExtremesByDivisionChart data={customerData} />
                     <MaritalStatusIncomePieChart data={customerData} />

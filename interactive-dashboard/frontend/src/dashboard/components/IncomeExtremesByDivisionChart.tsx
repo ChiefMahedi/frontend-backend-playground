@@ -85,7 +85,7 @@ export default function IncomeExtremesByDivisionChart(props: IncomeExtremesByDiv
                     <FontAwesomeIcon icon={faMoneyBill} className="text-2xl text-green-800" />
                 </div>
                 <h3 className="font-semibold p-1 self-center text-sm font-poppins">Income Extremes from Customers by Division</h3>
-                <div>
+                <div className="desktop:h-56">
                     <canvas ref={chartRef} />
                 </div>
             </div>
