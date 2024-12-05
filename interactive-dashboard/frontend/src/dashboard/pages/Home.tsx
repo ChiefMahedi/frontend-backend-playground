@@ -26,6 +26,7 @@ export default function Home() {
     const [totalIncome, setTotalIncome] = useState<string>('');
     const [lowIncomeDiv, setLowIncomeDiv] = useState<string>('');
     const [highIncomeDiv, setHighIncomeDiv] = useState<string>('');
+    const [customerData, setCustomerData] = useState<CustomerData[]>([]);
     const customers: CustomerData[] = [
         { ID: "BU79786", CustomerName: "Andrew", Division: "Dhaka", Gender: "F", MaritalStatus: "Married", Age: 31, Income: 56274 },
         { ID: "QZ44356", CustomerName: "Anne", Division: "Rajshahi", Gender: "F", MaritalStatus: "Single", Age: 46, Income: 0 },
@@ -76,21 +77,21 @@ export default function Home() {
         { ID: "IS78530", CustomerName: "Thomas", Division: "Chattogram", Gender: "F", MaritalStatus: "Married", Age: 29, Income: 0 },
         { ID: "AG97862", CustomerName: "Timothy", Division: "Dhaka", Gender: "M", MaritalStatus: "Married", Age: 25, Income: 34721 },
     ];
-    console.log(customers)
-    function getTotalCustomers() {
-        return customers.length;
+    console.log(customerData)
+    function getTotalCustomers(customerData:CustomerData[]) {
+        return customerData.length;
     }
-    function totalIncomeAmount() {
+    function totalIncomeAmount(customerData:CustomerData[]) {
         let sum = 0;
-        for (let i = 0; i < customers.length; i++) {
-            sum += customers[i].Income;
+        for (let i = 0; i < customerData.length; i++) {
+            sum += customerData[i].Income;
         }
         return sum;
     }
-    function getHighestIncomeDivision() {
+    function getHighestIncomeDivision(customerData:CustomerData[]) {
         const divisionIncomeMap: { [key: string]: number } = {};
 
-        customers.forEach(customer => {
+        customerData.forEach(customer => {
             if (!divisionIncomeMap[customer.Division]) {
                 divisionIncomeMap[customer.Division] = 0;
             }
@@ -110,10 +111,10 @@ export default function Home() {
         return highestIncomeDivision;
     }
 
-    function getLowestIncomeDivision() {
+    function getLowestIncomeDivision(customerData:CustomerData[]) {
         const divisionIncomeMap: { [key: string]: number } = {};
 
-        customers.forEach(customer => {
+        customerData.forEach(customer => {
             if (!divisionIncomeMap[customer.Division]) {
                 divisionIncomeMap[customer.Division] = 0;
             }
@@ -134,25 +135,44 @@ export default function Home() {
     }
 
     useEffect(() => {
+        if (import.meta.env.VITE_ENV == 'LOCAL') {
+            fetch("http://localhost:3000/customers")
+                .then(response => response.json())
+                .then((parsed)=>{
+                    console.log(parsed)
+                    setCustomerData(parsed);
+                })
+                .catch((e) => {
+                    console.error(e);
+                })
 
-        const customerCount = getTotalCustomers();
-        console.log(customerCount)
-        setTotalCustomer(String(customerCount));
+        }
+        else
+        {
+            setCustomerData(customers);
+        }
+        if(customerData.length >0)
+        {
+            const customerCount = getTotalCustomers(customerData);
+            console.log(customerCount)
+            setTotalCustomer(String(customerCount));
+    
+            const incomeCount = totalIncomeAmount(customerData);
+            setTotalIncome(`BDT. ${incomeCount}`);
+    
+            console.log(`Total customers: ${customerCount}`);
+            console.log(`Total income: ${incomeCount}`);
+    
+            const highestIncomeDivision = getHighestIncomeDivision(customerData);
+            setLowIncomeDiv(highestIncomeDivision);
+            console.log("Division with the highest total income: ", highestIncomeDivision);
+    
+            const lowestIncomeDivision = getLowestIncomeDivision(customerData);
+            setHighIncomeDiv(lowestIncomeDivision);
+            console.log("Division with the lowest total income: ", lowestIncomeDivision);
+        }
 
-        const incomeCount = totalIncomeAmount();
-        setTotalIncome(`BDT. ${incomeCount}`);
-
-        console.log(`Total customers: ${customerCount}`);
-        console.log(`Total income: ${incomeCount}`);
-
-        const highestIncomeDivision = getHighestIncomeDivision();
-        setLowIncomeDiv(highestIncomeDivision);
-        console.log("Division with the highest total income: ", highestIncomeDivision);
-
-        const lowestIncomeDivision = getLowestIncomeDivision();
-        setHighIncomeDiv(lowestIncomeDivision);
-        console.log("Division with the lowest total income: ", lowestIncomeDivision);
-    }, []);
+    }, [customerData.length]);
 
 
     return (
@@ -171,13 +191,13 @@ export default function Home() {
                     <StatsCard icon={faMap} label="Lowest Income Division" number={highIncomeDiv} />
                 </div>
                 <div className="flex flex-col items-center justify-evenly laptop:flex-row">
-                    <TotalIncomeBarChart data={customers} />
-                    <AgeIncomeScatterChart data={customers} />
+                    <TotalIncomeBarChart data={customerData} />
+                    <AgeIncomeScatterChart data={customerData} />
                 </div>
                 <div className="flex-col items-center laptop:flex-row laptop:flex flex laptop:justify-evenly laptop:items-center">
-                    <GenderDistributionChart data={customers} />
-                    <IncomeExtremesByDivisionChart data={customers} />
-                    <MaritalStatusIncomePieChart data={customers} />
+                    <GenderDistributionChart data={customerData} />
+                    <IncomeExtremesByDivisionChart data={customerData} />
+                    <MaritalStatusIncomePieChart data={customerData} />
                 </div>
             </div>
 
