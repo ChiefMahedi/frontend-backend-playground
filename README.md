@@ -90,7 +90,7 @@ Additionally, the application has the capability to send emails to customers usi
 ## Demo
 
 You can view the live demo of the project here:  
-[Live Demo](https://frontend-backend-playground-vtaz-49bvkg8hj.vercel.app/)
+[Live Demo](https://frontend-backend-playground-vtaz.vercel.app)
 
 ## Installation
 
@@ -102,7 +102,7 @@ Make sure you have the following installed on your system:
 
 - [Node.js](https://nodejs.org/) (Node.js v18.17.0)
 
-### Step-by-Step Installation
+### Step-by-Step Installation for frontend
 
 1. **Clone the repository**
 
@@ -122,3 +122,26 @@ Make sure you have the following installed on your system:
 5. **Run the app**
    ```bash
    npm run dev
+
+Note: Frontend dev server runs on port 5173 you can access the app by going to : http://localhost:5173/. Also to send emails using the app, you must create an account on Email.js and collect the Service Key, Public Key, and Email Template Key. These keys should be added to the .env file to configure the email functionality. .env keys will be:  VITE_EMAILJS_SERVICE_KEY, VITE_EMAILJS_PUBLIC_KEY, VITE_EMAILJS_TEMPLATE_KEY
+
+### Step-by-Step Installation for backend
+2. **Change directory to backend**
+   ```bash
+   cd ..
+   cd backend
+4. **Install required packages**
+   ```bash
+   npm install
+5. **Run the app**
+   ```bash
+   npm start
+
+Note: Backend server runs on port 3000.
+
+1. Make a GET request to get all the customers: http://localhost:3000/customers
+2. Make a GET request to get all the products: http://localhost:3000/products
+3. Make a GET request to get all the orders: http://localhost:3000/orders
+
+
+Open two terminals and run both frontend and backend servers. Create one entry in frontend .env called VITE_ENV = LOCAL. The frontend will then dynamically fetch data from backend to get all customers data.
