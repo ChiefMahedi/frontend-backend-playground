@@ -34,7 +34,7 @@ Make sure you have the following installed on your system:
    ```bash
    npm run dev
 
-
+Access the app on: http://localhost:5173/ (Make sure no the other service is running on port 5173)
 
 # Interactive Bar Chart 2 - 1(b)
 
@@ -72,6 +72,7 @@ Make sure you have the following installed on your system:
    ```bash
    npm run dev
 
+Access the app on: http://localhost:5173/ (Make sure no the other service is running on port 5173)
 
 # Analytical Dashboard - Interactive Dashboard
 
@@ -123,6 +124,8 @@ Make sure you have the following installed on your system:
    ```bash
    npm run dev
 
+Access the app on: http://localhost:5173/ (Make sure no the other service is running on port 5173)
+
 Note: Frontend dev server runs on port 5173 you can access the app by going to : http://localhost:5173/. Also to send emails using the app, you must create an account on Email.js and collect the Service Key, Public Key, and Email Template Key. These keys should be added to the .env file to configure the email functionality. .env keys will be:  VITE_EMAILJS_SERVICE_KEY, VITE_EMAILJS_PUBLIC_KEY, VITE_EMAILJS_TEMPLATE_KEY
 
 ### Step-by-Step Installation for backend
@@ -137,7 +140,7 @@ Note: Frontend dev server runs on port 5173 you can access the app by going to :
    ```bash
    npm start
 
-Note: Backend server runs on port 3000.
+Note: Backend server runs on port 3000. (Make sure no the other service is running on port 3000)
 
 1. Make a GET request to get all the customers: http://localhost:3000/customers
 2. Make a GET request to get all the products: http://localhost:3000/products
