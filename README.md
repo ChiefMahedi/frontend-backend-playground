@@ -1,4 +1,4 @@
-Technologies used : React.js, Chart.js, TailwindCss, Node.js, Express.js, TypeScript, etc
+Technologies used : React.js, Chart.js, TailwindCss, Node.js, Express.js, TypeScript, etc.
 
 # Interactive Bar Chart 1 - 1(a)
 
